@@ -14,7 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: '*', // Allow all origins (we will restrict this later for security)
+    origin: 'https://university-results.vercel.app', // Allow all origins (we will restrict this later for security)
     credentials: true
 }));
 
