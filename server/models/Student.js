@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// 1. Define Sub-Schemas
+
 const SubjectSchema = new mongoose.Schema({
     subjectCode: { type: String, required: true },
     marks: { type: Number, required: true },
@@ -14,7 +14,7 @@ const SemesterSchema = new mongoose.Schema({
     remarks: { type: String, default: "Promoted" }
 }, { _id: false });
 
-// 2. Define Main Student Schema
+
 const StudentSchema = new mongoose.Schema({
     registrationNumber: { type: String, required: true, unique: true },
     name: { type: String, required: true },
@@ -23,6 +23,7 @@ const StudentSchema = new mongoose.Schema({
     cgpa: { type: Number, default: 0 }
 });
 
-// 3. Create and Export the MODEL (Not the schema)
+
 const Student = mongoose.model('Student', StudentSchema);
+
 export default Student;

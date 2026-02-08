@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Save, FileJson, Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import api from '../config/axiosConfig.js'
 import { BRANCH_CURRICULUM } from '../utils/curriculum.js'; 
 import selectBranch from '../utils/selectBranch.js';
 
@@ -36,7 +36,7 @@ const AdminUpload = () => {
       if (formData.registrationNumber.length === 11) {
         setFetchingStudent(true);
         try {
-          const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/student-result/${formData.registrationNumber}`);
+          const { data } = await api.get(`/api/student-result/${formData.registrationNumber}`);
           
           setFullStudentData(data); // Save full history
           setFormData(prev => ({
@@ -142,7 +142,7 @@ const AdminUpload = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/update-result`, payload, {
+      await api.put('/api/admin/update-result', payload, {
           headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("Saved successfully!");
@@ -167,7 +167,7 @@ const AdminUpload = () => {
             if (!Array.isArray(jsonData)) throw new Error("Not an array");
             setLoading(true);
             const token = localStorage.getItem('adminToken');
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/bulk-upload`, jsonData, {
+            const { data } = await api.post('/api/admin/bulk-upload', jsonData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             toast.success(`Created: ${data.stats.created}, Updated: ${data.stats.updated}`);

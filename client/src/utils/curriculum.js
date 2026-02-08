@@ -1,5 +1,3 @@
-// src/utils/curriculum.js
-
 export const BRANCH_CURRICULUM = {
   "CSE": {
     1: [

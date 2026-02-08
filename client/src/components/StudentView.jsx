@@ -19,7 +19,7 @@ const StudentView = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch Leaderboard on Component Mount
+  
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
@@ -28,7 +28,7 @@ const StudentView = () => {
         );
         setLeaderboard(data);
       } catch (err) {
-        console.error("Failed to load leaderboard");
+        console.error("Failed to load leaderboard : ",err.message);
       }
     };
     fetchLeaderboard();
@@ -44,7 +44,7 @@ const StudentView = () => {
 
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/student-result/${searchParams.regNo}?branch=${searchParams.branch}`
+        `${import.meta.env.VITE_API_URL}/api/student-result/${searchParams.regNo}`
       );
       setStudentData(response.data);
       toast.success("Result found!");
@@ -83,9 +83,9 @@ const StudentView = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 max-w-6xl mx-auto space-y-16">
+    <div className="min-h-screen pt-24 pb-12 px-4 max-w-6xl mx-auto space-y-16 scrollbar-hide">
       {/* --- HERO SECTION & SEARCH --- */}
-      <section className="max-w-3xl mx-auto text-center space-y-8">
+      <section className="max-w-3xl mx-auto text-center space-y-8 scrollbar-hide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -120,21 +120,6 @@ const StudentView = () => {
                 }
               />
               <User
-                className="absolute left-3 top-3.5 text-slate-400"
-                size={18}
-              />
-            </div>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Branch (Optional)"
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
-                value={searchParams.branch}
-                onChange={(e) =>
-                  setSearchParams({ ...searchParams, branch: e.target.value })
-                }
-              />
-              <Layers
                 className="absolute left-3 top-3.5 text-slate-400"
                 size={18}
               />

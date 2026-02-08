@@ -5,7 +5,7 @@ export const protect = (req, res, next) => {
 
     if (token && token.startsWith('Bearer')) {
         try {
-            token = token.split(' ')[1]; // Remove 'Bearer'
+            token = token.split(' ')[1]; 
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.adminId = decoded.id;
             next();
